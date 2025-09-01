@@ -1,0 +1,55 @@
+import { 
+	ddSin,
+	ddMultDd,
+	ddAddDd,
+	ddDivDd,
+	ddDiffDd,
+	ddSqrt,
+	
+	ddDivBy2,
+	ddMultBy2,
+	ddNegativeOf,
+	
+	strToDd,
+	
+	PIDd,
+	eDd,
+	ln2Dd
+} from 'double-double';
+
+import {ddExp} from './exp.js';
+import {ddLog} from './log.js';
+
+/*
+Гиперболический функции, выражаемые простыми формулами
+*/
+
+function ddSinh(x){
+	return ddDivBy2(ddDiffDd(ddExp(x), ddExp(ddNegativeOf(x))));
+}
+
+function ddCosh(x){
+	return ddDivBy2(ddAddDd(ddExp(x), ddExp(ddNegativeOf(x))));
+}
+
+function ddTanh(x){
+	let e2x = ddExp(ddMultBy2(x));
+	return ddDivBy2(ddDiffDd(e2x, [0,1]),ddAddDd(e2x, [0,1]));
+}
+
+function ddAсosh(x){
+	return ddLog(ddAddDd([0,1], ddSqrt(ddDiffDd(x,[0,1]))));
+}
+
+function ddAsinh(x){
+	return ddLog(ddAddDd([0,1], ddSqrt(ddAddDd(x,[0,1]))));
+}
+
+function ddAtanh(x){
+	return ddDivBy2(ddLog(ddDivDd(ddAddDd([0,1], x), ddDiffDd([0,1], x))));
+}
+
+export {
+	ddSinh, ddCosh, ddTanh,
+	ddAsinh, ddAcosh, ddAtanh
+};
