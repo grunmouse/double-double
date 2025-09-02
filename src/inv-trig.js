@@ -7,6 +7,7 @@ import {
 	
 	ddDivBy2,
 	ddSqrt,
+	ddNegativeOf,
 	
 	strToDd,
 	
@@ -46,16 +47,16 @@ function ddAtan2(y, x){
 	if(x[1]<0){
 		if(y[1]<0){
 			//Третий квадрант
-			return ddAddDd(ddNegateOf(ddPI), ddAtan2(ddNegateOf(y), ddNegateOf(x)))
+			return ddAddDd(ddNegativeOf(ddPI), ddAtan2(ddNegativeOf(y), ddNegativeOf(x)))
 		}
 		else{
 			//второй квадрант
-			return ddDiffDd(ddPI, ddAtan2(y, ddNegateOf(x)));
+			return ddDiffDd(ddPI, ddAtan2(y, ddNegativeOf(x)));
 		}
 	}
 	else if(y[1]<0){
 		//Четвёртый квадрант
-		return ddNegateOf(ddAtan2(ddNegateOf(y),x));
+		return ddNegativeOf(ddAtan2(ddNegativeOf(y),x));
 	}
 
 	//Первый квадрант

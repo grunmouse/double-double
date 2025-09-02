@@ -8,7 +8,7 @@ import {
 const ddPI = PIDd;
 const ddE = eDd;
 const ddLn2 = ln2Dd;
-const ddEuler = eulerDd; //число Эйлера–Маскерони (Euler–Mascheroni)
+const ddEulerMasch = eulerDd; //число Эйлера–Маскерони (Euler-Mascheroni)
 
 const ddLn10 = strToDd('2.30258509299404568401799145468');
 const ddLog2E = ddDivDd([0,1], ddLn2);
@@ -21,8 +21,8 @@ const ddPI_4 = ddDivBy2(ddPI_2);
 
 export {
 	ddPI, ddPI_2, ddPI_4,
-	ddE
-	ddLn2, ddLn10, ddLog10E, ddlog2E
+	ddE,
+	ddLn2, ddLn10, ddLog10E, ddLog2E,
 	ddSQRT2, ddSQRT1_2,
-	ddEulerMasch
+	ddEulerMasch
 };

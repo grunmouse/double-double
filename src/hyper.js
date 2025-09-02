@@ -34,10 +34,10 @@ function ddCosh(x){
 
 function ddTanh(x){
 	let e2x = ddExp(ddMultBy2(x));
-	return ddDivBy2(ddDiffDd(e2x, [0,1]),ddAddDd(e2x, [0,1]));
+	return ddDivDd(ddDiffDd(e2x, [0,1]),ddAddDd(e2x, [0,1]));
 }
 
-function ddAсosh(x){
+function ddAcosh(x){
 	return ddLog(ddAddDd([0,1], ddSqrt(ddDiffDd(x,[0,1]))));
 }
 

@@ -7,7 +7,7 @@ import {
 	
 	ddDivBy2,
 	
-	ddNegateOf,
+	ddNegativeOf,
 	
 	strToDd,
 	
@@ -29,7 +29,7 @@ import {
 
 function ddAtan(x){
 	if(ddLt(x,[0,0])){
-		return ddNegateOf(ddAtan(ddNegateOf(x)));
+		return ddNegativeOf(ddAtan(ddNegativeOf(x)));
 	}
 
 	if(ddGt(x,[0,1])){
@@ -52,4 +52,4 @@ function ddAtan(x){
 	return z;
 }
 
-export {ddATan};
+export {ddAtan};
