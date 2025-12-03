@@ -1,9 +1,11 @@
+export * from 'double-double';
 export * from './constants.js';
 import {ddSin, ddCos, ddTan} from './trig.js';
 import {ddAtan, ddAtan2, ddAsin, ddAcos} from './inv-trig.js';
 import {ddExp} from './exp.js';
 import {ddLog} from './log.js';
 import {ddSinh, ddCosh, ddTanh, ddAsinh, ddAcosh, ddAtanh} from './hyper.js';
+import {ddPowDouble, ddPowDd} from './pow.js';
 
 export {
 	ddSin, ddCos, ddTan,
@@ -11,6 +13,7 @@ export {
 	
 	ddExp,
 	ddLog,
+	ddPowDouble, ddPowDd,
 	
 	ddSinh, ddCosh, ddTanh, 
 	ddAsinh, ddAcosh, ddAtanh

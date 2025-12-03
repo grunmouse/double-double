@@ -1,58 +1,27 @@
 
 import { ddExp, ddLog } from '../../src/index.js';
 
-import assert from 'assert';
-import { createRequire } from 'node:module';
-const require = createRequire(import.meta.url);
-
-const {arb} = require('@grunmouse/prover');
-const prop = require('@grunmouse/prover/mocha_prop.js');
-
-function isApprox(dd, d){
-	let y = dd[1];
-	if(Math.abs(d)>Math.abs(y)){
-		[y,d]=[d,y];
-	}
-	return (y-d)/y<2*Number.EPSILON;
-}
+import {
+	arb,
+	prop,
+	asert,
+	isApprox,
+	assertApprox,
+	propApprox
+} from './props.js';
 
 describe('ddExp', () => {
-    prop('approx in item #1', arb.i_o(-5, 5), (x) => {
-        let dd = ddExp([0, x]);
-        let d = Math.exp(x);
-        //assert.ok(isApprox(dd, d));
-		assert.equal(dd[1],d)
-    });
+    const propExp = (title, arbitrary) => propApprox(title, arbitrary, ddExp, Math.exp);
 
-    prop('large positive', arb.i_i(5, 20), (x) => {
-        let dd = ddExp([0, x]);
-        let d = Math.exp(x);
-        assert.ok(isApprox(dd, d));
-    });
-
-    prop('large negative', arb.i_i(-20, -5), (x) => {
-        let dd = ddExp([0, x]);
-        let d = Math.exp(x);
-        assert.ok(isApprox(dd, d));
-    });
+    propExp('approx in item #1', arb.i_o(-5, 5));
+    propExp('large positive', arb.i_i(5, 20));
+    propExp('large negative', arb.i_i(-20, -5));
 });
 
 describe('ddLog', () => {
-    prop('approx in item #1', arb.i_o(0, 5), (x) => {
-        let dd = ddLog([0, x]);
-        let d = Math.log(x);
-        assert.ok(isApprox(dd, d));
-    });
+    const propLog = (title, arbitrary) => propApprox(title, arbitrary, ddLog, Math.log);
 
-    prop('large positive', arb.i_i(5, 20), (x) => {
-        let dd = ddLog([0, x]);
-        let d = Math.log(x);
-        assert.ok(isApprox(dd, d));
-    });
-
-    prop('near 1', arb.i_o(0.1, 1), (x) => {
-        let dd = ddLog([0, x]);
-        let d = Math.log(x);
-        assert.ok(isApprox(dd, d));
-    });
+    propLog('approx in item #1', arb.i_o(0, 5));
+    propLog('large positive', arb.i_i(5, 20));
+    propLog('near 1', arb.i_o(0.1, 1));
 });

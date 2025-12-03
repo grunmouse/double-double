@@ -38,11 +38,11 @@ function ddTanh(x){
 }
 
 function ddAcosh(x){
-	return ddLog(ddAddDd([0,1], ddSqrt(ddDiffDd(x,[0,1]))));
+	return ddLog(ddAddDd(x, ddSqrt(ddDiffDd(ddMultDd(x,x),[0,1]))));
 }
 
 function ddAsinh(x){
-	return ddLog(ddAddDd([0,1], ddSqrt(ddAddDd(x,[0,1]))));
+	return ddLog(ddAddDd(x, ddSqrt(ddAddDd(ddMultDd(x,x),[0,1]))));
 }
 
 function ddAtanh(x){

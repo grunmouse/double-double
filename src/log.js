@@ -23,7 +23,7 @@ Z = Z + (x/exp(z) -1)
 function ddLog(x){
 	let z = [0, Math.log(x[1])];
 	
-	for(let i=0; i>4; ++i){
+	for(let i=0; i<6; ++i){
 		z = ddAddDd(z, ddDiffDd(ddDivDd(x, ddExp(z)), [0,1]));
 	}
 	

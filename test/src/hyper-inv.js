@@ -1,76 +1,37 @@
 import {ddAsinh, ddAcosh, ddAtanh} from '../../src/index.js'
 
-import assert from 'assert';
-import { createRequire } from 'node:module';
-const require = createRequire(import.meta.url);
-
-const {arb} = require('@grunmouse/prover');
-const prop = require('@grunmouse/prover/mocha_prop.js');
-
-function isApprox(dd, d){
-	let y = dd[1];
-	if(Math.abs(d)>Math.abs(y)){
-		[y,d]=[d,y];
-	}
-	return (y-d)/y<2*Number.EPSILON;
-}
+import {
+	arb,
+	prop,
+	assert,
+	isApprox,
+	assertApprox,
+	propApprox
+} from './props.js';
 
 describe('ddAsinh', () => {
-    prop('approx in item #1', arb.i_o(-5, 5), (x) => {
-        let dd = ddAsinh([0, x]);
-        let d = Math.asinh(x);
-        assert.ok(isApprox(dd, d));
-    });
+	const propAsinh = (title, arbitrary)=>propApprox(title, arbitrary, ddSinh, Math.sinh);
+    propAsinh('approx in item #1', arb.i_o(-5, 5));
 
-    prop('large positive', arb.i_i(5, 20), (x) => {
-        let dd = ddAsinh([0, x]);
-        let d = Math.asinh(x);
-        assert.ok(isApprox(dd, d));
-    });
+    propAsinh('large positive', arb.i_i(5, 20));
 
-    prop('large negative', arb.i_i(-20, -5), (x) => {
-        let dd = ddAsinh([0, x]);
-        let d = Math.asinh(x);
-        assert.ok(isApprox(dd, d));
-    });
+    propAsinh('large negative', arb.i_i(-20, -5));
 });
 
 describe('ddAcosh', () => {
-    prop('approx in item #1', arb.i_o(1, 5), (x) => {
-        let dd = ddAcosh([0, x]);
-        let d = Math.acosh(x);
-        assert.ok(isApprox(dd, d));
-    });
+	const propAcosh = (title, arbitrary)=>propApprox(title, arbitrary, ddAcosh, Math.cosh);
+    propAcosh('approx in item #1', arb.i_o(1, 5));
 
-    prop('large positive', arb.i_i(5, 20), (x) => {
-        let dd = ddAcosh([0, x]);
-        let d = Math.acosh(x);
-        assert.ok(isApprox(dd, d));
-    });
+    propAcosh('large positive', arb.i_i(5, 20));
 
-    prop('near 1', arb.i_o(1, 2), (x) => {
-        let dd = ddAcosh([0, x]);
-        let d = Math.acosh(x);
-        assert.ok(isApprox(dd, d));
-    });
+    propAcosh('near 1', arb.i_o(1, 2));
 });
 
 describe('ddAtanh', () => {
-    prop('approx in item #1', arb.i_o(0, 1), (x) => {
-        let dd = ddAtanh([0, x]);
-        let d = Math.atanh(x);
-        assert.ok(isApprox(dd, d));
-    });
+	const propAtanh = (title, arbitrary)=>propApprox(title, arbitrary, ddAtanh, Math.atanh);
+    prop('approx in item #1', arb.i_o(0, 1));
 
-    prop('over 0.5', arb.i_i(0.5, 1), (x) => {
-        let dd = ddAtanh([0, x]);
-        let d = Math.atanh(x);
-        assert.ok(isApprox(dd, d));
-    });
+    propAtanh('over 0.5', arb.i_i(0.5, 1));
 
-    prop('negate', arb.i_i(-1, 0), (x) => {
-        let dd = ddAtanh([0, x]);
-        let d = Math.atanh(x);
-        assert.ok(isApprox(dd, d));
-    });
+    propAtanh('negate', arb.i_i(-1, 0));
 });

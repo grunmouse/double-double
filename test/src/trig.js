@@ -1,19 +1,13 @@
 import {ddSin, ddCos, ddTan} from '../../src/index.js'
 
-import assert from 'assert';
-import { createRequire } from 'node:module';
-const require = createRequire(import.meta.url);
-
-const {arb} = require('@grunmouse/prover');
-const prop = require('@grunmouse/prover/mocha_prop.js');
-
-function isApprox(dd, d){
-	let y = dd[1];
-	if(Math.abs(d)>Math.abs(y)){
-		[y,d]=[d,y];
-	}
-	return (y-d)/y<2*Number.EPSILON;
-}
+import {
+	arb,
+	prop,
+	assert,
+	isApprox,
+	assertApprox,
+	propApprox
+} from './props.js';
 
 describe('ddSin', () => {
     prop('posit', arb.i_o(0, Math.PI), (x) => {
